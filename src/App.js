@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import ApolloClient from "apollo-boost";
+import {ApolloProvider} from 'react-apollo';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//components
+import SongList from "./components/SongList.js";
+import AddSong from"./components/AddSong.js"
+
+//setting up Apollo
+const client = new ApolloClient({
+  uri:'http://localhost:4000/graphql'
+})
+
+
+class App extends Component {
+  render(){
+    return(
+      <ApolloProvider client={client}>
+      <div id="main">
+        <h1>All Time Music List</h1>
+        <SongList />
+        <AddSong />
+      </div>
+      </ApolloProvider>
+    )
+  }
 }
 
 export default App;
